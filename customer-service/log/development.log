@@ -1,0 +1,836 @@
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mREDIS_URL[0m
+[dotenv] Loaded [33m.env[0m
+nil
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected to amqp://admin:admin@localhost:5672
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mRAILS_ENV[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected to amqp://admin:admin@localhost:5672
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mRAILS_ENV[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected to amqp://admin:admin@localhost:5672
+  [1m[35m (17.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='CustomerService'*/[0m
+  [1m[35m (7.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='CustomerService'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1659714814823458050) /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (2.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-10-17 02:23:46.060609', '2025-10-17 02:23:46.060610') RETURNING "key" /*application='CustomerService'*/[0m
+Migrating to CreateCustomers (20251017071739)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[35m (6.8ms)[0m  [1m[35mCREATE TABLE "customers" ("id" bigserial primary key, "name" character varying NOT NULL, "email" character varying NOT NULL, "address" character varying NOT NULL, "phone" character varying, "orders_count" integer DEFAULT 0 NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='CustomerService'*/[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_customers_on_email" ON "customers" ("email") /*application='CustomerService'*/[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE INDEX "index_customers_on_name" ON "customers" ("name") /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251017071739') RETURNING "version" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(1659714814823458050) /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mRAILS_ENV[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected to amqp://admin:admin@localhost:5672
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  [1m[36mCustomer Load (0.5ms)[0m  [1m[34mSELECT "customers".* FROM "customers" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (2.0ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('juan.perez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.5ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Juan Pérez', 'juan.perez@example.com', 'Calle 10 #45-67, Medellín, Antioquia', '+57 300 123 4567', 0, '2025-10-17 02:23:53.615464', '2025-10-17 02:23:53.615464') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (2.1ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('maria.garcia@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.3ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('María García', 'maria.garcia@example.com', 'Carrera 50 #30-20, Bogotá, Cundinamarca', '+57 310 987 6543', 0, '2025-10-17 02:23:53.645789', '2025-10-17 02:23:53.645789') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (2.8ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('carlos.rodriguez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.2ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Carlos Rodríguez', 'carlos.rodriguez@example.com', 'Avenida 3 #12-34, Cali, Valle del Cauca', '+57 320 456 7890', 0, '2025-10-17 02:23:53.668247', '2025-10-17 02:23:53.668247') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (9.9ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('ana.martinez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.4ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Ana Martínez', 'ana.martinez@example.com', 'Calle 80 #15-30, Barranquilla, Atlántico', '+57 315 234 5678', 0, '2025-10-17 02:23:53.707310', '2025-10-17 02:23:53.707310') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (2.5ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('luis.hernandez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (1.0ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Luis Hernández', 'luis.hernandez@example.com', 'Carrera 20 #40-50, Cartagena, Bolívar', '+57 301 876 5432', 0, '2025-10-17 02:23:53.728301', '2025-10-17 02:23:53.728301') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('laura.gomez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.3ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Laura Gómez', 'laura.gomez@example.com', 'Calle 25 #30-15, Bucaramanga, Santander', '+57 311 345 6789', 0, '2025-10-17 02:23:53.739879', '2025-10-17 02:23:53.739879') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('pedro.sanchez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.2ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Pedro Sánchez', 'pedro.sanchez@example.com', 'Avenida 7 #22-44, Pereira, Risaralda', '+57 321 654 3210', 0, '2025-10-17 02:23:53.746024', '2025-10-17 02:23:53.746024') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (2.2ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('sofia.lopez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.3ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Sofia López', 'sofia.lopez@example.com', 'Carrera 15 #50-60, Manizales, Caldas', '+57 312 567 8901', 0, '2025-10-17 02:23:53.756790', '2025-10-17 02:23:53.756790') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (27.2ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('diego.torres@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.3ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Diego Torres', 'diego.torres@example.com', 'Calle 35 #18-25, Santa Marta, Magdalena', '+57 314 890 1234', 0, '2025-10-17 02:23:53.792599', '2025-10-17 02:23:53.792599') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('valentina.ruiz@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.2ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Valentina Ruiz', 'valentina.ruiz@example.com', 'Avenida 10 #28-40, Ibagué, Tolima', '+57 316 123 4567', 0, '2025-10-17 02:23:53.803512', '2025-10-17 02:23:53.803512') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mCustomer Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "customers" /*application='CustomerService'*/[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mRAILS_ENV[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected to amqp://admin:admin@localhost:5672
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='CustomerService'*/[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='CustomerService'*/[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='CustomerService'*/[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+  [1m[36mActiveRecord::InternalMetadata Load (2.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Update (6.2ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = 'development', "updated_at" = '2025-10-17 13:33:51.381452' WHERE "ar_internal_metadata"."key" = 'environment' /*application='CustomerService'*/[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mRAILS_ENV[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  [1m[36mCustomer Load (0.6ms)[0m  [1m[34mSELECT "customers".* FROM "customers" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.8ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('juan.perez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.4ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Juan Pérez', 'juan.perez@example.com', 'Calle 10 #45-67, Medellín, Antioquia', '+57 300 123 4567', 0, '2025-10-17 13:34:05.037352', '2025-10-17 13:34:05.037352') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (10.7ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.9ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('maria.garcia@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.3ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('María García', 'maria.garcia@example.com', 'Carrera 50 #30-20, Bogotá, Cundinamarca', '+57 310 987 6543', 0, '2025-10-17 13:34:05.077418', '2025-10-17 13:34:05.077418') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (2.6ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('carlos.rodriguez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.3ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Carlos Rodríguez', 'carlos.rodriguez@example.com', 'Avenida 3 #12-34, Cali, Valle del Cauca', '+57 320 456 7890', 0, '2025-10-17 13:34:05.099696', '2025-10-17 13:34:05.099696') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (9.0ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('ana.martinez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.4ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Ana Martínez', 'ana.martinez@example.com', 'Calle 80 #15-30, Barranquilla, Atlántico', '+57 315 234 5678', 0, '2025-10-17 13:34:05.138346', '2025-10-17 13:34:05.138346') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('luis.hernandez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.3ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Luis Hernández', 'luis.hernandez@example.com', 'Carrera 20 #40-50, Cartagena, Bolívar', '+57 301 876 5432', 0, '2025-10-17 13:34:05.158909', '2025-10-17 13:34:05.158909') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('laura.gomez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.3ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Laura Gómez', 'laura.gomez@example.com', 'Calle 25 #30-15, Bucaramanga, Santander', '+57 311 345 6789', 0, '2025-10-17 13:34:05.170919', '2025-10-17 13:34:05.170919') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('pedro.sanchez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.2ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Pedro Sánchez', 'pedro.sanchez@example.com', 'Avenida 7 #22-44, Pereira, Risaralda', '+57 321 654 3210', 0, '2025-10-17 13:34:05.177296', '2025-10-17 13:34:05.177296') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.9ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('sofia.lopez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.2ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Sofia López', 'sofia.lopez@example.com', 'Carrera 15 #50-60, Manizales, Caldas', '+57 312 567 8901', 0, '2025-10-17 13:34:05.187534', '2025-10-17 13:34:05.187534') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('diego.torres@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.2ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Diego Torres', 'diego.torres@example.com', 'Calle 35 #18-25, Santa Marta, Magdalena', '+57 314 890 1234', 0, '2025-10-17 13:34:05.196202', '2025-10-17 13:34:05.196202') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.7ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('valentina.ruiz@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.4ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Valentina Ruiz', 'valentina.ruiz@example.com', 'Avenida 10 #28-40, Ibagué, Tolima', '+57 316 123 4567', 0, '2025-10-17 13:34:05.232803', '2025-10-17 13:34:05.232803') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mCustomer Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "customers" /*application='CustomerService'*/[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+  [1m[36mCustomer Count (38.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "customers" /*application='CustomerService'*/[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mRAILS_ENV[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+SolidQueue-1.2.1 Error registering Supervisor (42.2ms)  pid: 1197213, hostname: "bonkis-System-Product-Name", name: "supervisor-9f38ec91bba4cfa72e6f", error: "ActiveRecord::StatementInvalid PG::UndefinedTable: ERROR:  relation \"solid_queue_processes\" does not exist\nLINE 10:  WHERE a.attrelid = '\"solid_queue_processes\"'::regclass\n                             ^\n"
+SolidQueue-1.2.1 Started Supervisor (64.6ms)  pid: 1197213, hostname: "bonkis-System-Product-Name", process_id: nil, name: "supervisor-9f38ec91bba4cfa72e6f"
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mRAILS_ENV[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mRAILS_ENV[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1659714814823458050) /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(1659714814823458050) /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mRAILS_ENV[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+SolidQueue-1.2.1 Error registering Supervisor (41.4ms)  pid: 1199715, hostname: "bonkis-System-Product-Name", name: "supervisor-bfcb8c6b968242e6695a", error: "ActiveRecord::StatementInvalid PG::UndefinedTable: ERROR:  relation \"solid_queue_processes\" does not exist\nLINE 10:  WHERE a.attrelid = '\"solid_queue_processes\"'::regclass\n                             ^\n"
+SolidQueue-1.2.1 Started Supervisor (56.8ms)  pid: 1199715, hostname: "bonkis-System-Product-Name", process_id: nil, name: "supervisor-bfcb8c6b968242e6695a"
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_blocked_executions" CASCADE /*application='CustomerService'*/[0m
+  [1m[35m (45.4ms)[0m  [1m[35mCREATE TABLE "solid_queue_blocked_executions" ("id" bigserial primary key, "job_id" bigint NOT NULL, "queue_name" character varying NOT NULL, "priority" integer DEFAULT 0 NOT NULL, "concurrency_key" character varying NOT NULL, "expires_at" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL) /*application='CustomerService'*/[0m
+  [1m[35m (4.6ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_blocked_executions_for_release" ON "solid_queue_blocked_executions" ("concurrency_key", "priority", "job_id") /*application='CustomerService'*/[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_blocked_executions_for_maintenance" ON "solid_queue_blocked_executions" ("expires_at", "concurrency_key") /*application='CustomerService'*/[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_blocked_executions_on_job_id" ON "solid_queue_blocked_executions" ("job_id") /*application='CustomerService'*/[0m
+  [1m[35m (1.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_claimed_executions" CASCADE /*application='CustomerService'*/[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE TABLE "solid_queue_claimed_executions" ("id" bigserial primary key, "job_id" bigint NOT NULL, "process_id" bigint, "created_at" timestamp(6) NOT NULL) /*application='CustomerService'*/[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_claimed_executions_on_job_id" ON "solid_queue_claimed_executions" ("job_id") /*application='CustomerService'*/[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_claimed_executions_on_process_id_and_job_id" ON "solid_queue_claimed_executions" ("process_id", "job_id") /*application='CustomerService'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_failed_executions" CASCADE /*application='CustomerService'*/[0m
+  [1m[35m (7.9ms)[0m  [1m[35mCREATE TABLE "solid_queue_failed_executions" ("id" bigserial primary key, "job_id" bigint NOT NULL, "error" text, "created_at" timestamp(6) NOT NULL) /*application='CustomerService'*/[0m
+  [1m[35m (4.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_failed_executions_on_job_id" ON "solid_queue_failed_executions" ("job_id") /*application='CustomerService'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_jobs" CASCADE /*application='CustomerService'*/[0m
+  [1m[35m (7.8ms)[0m  [1m[35mCREATE TABLE "solid_queue_jobs" ("id" bigserial primary key, "queue_name" character varying NOT NULL, "class_name" character varying NOT NULL, "arguments" text, "priority" integer DEFAULT 0 NOT NULL, "active_job_id" character varying, "scheduled_at" timestamp(6), "finished_at" timestamp(6), "concurrency_key" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='CustomerService'*/[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_jobs_on_active_job_id" ON "solid_queue_jobs" ("active_job_id") /*application='CustomerService'*/[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_jobs_on_class_name" ON "solid_queue_jobs" ("class_name") /*application='CustomerService'*/[0m
+  [1m[35m (4.7ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_jobs_on_finished_at" ON "solid_queue_jobs" ("finished_at") /*application='CustomerService'*/[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_jobs_for_filtering" ON "solid_queue_jobs" ("queue_name", "finished_at") /*application='CustomerService'*/[0m
+  [1m[35m (5.3ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_jobs_for_alerting" ON "solid_queue_jobs" ("scheduled_at", "finished_at") /*application='CustomerService'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_pauses" CASCADE /*application='CustomerService'*/[0m
+  [1m[35m (7.5ms)[0m  [1m[35mCREATE TABLE "solid_queue_pauses" ("id" bigserial primary key, "queue_name" character varying NOT NULL, "created_at" timestamp(6) NOT NULL) /*application='CustomerService'*/[0m
+  [1m[35m (4.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_pauses_on_queue_name" ON "solid_queue_pauses" ("queue_name") /*application='CustomerService'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_processes" CASCADE /*application='CustomerService'*/[0m
+  [1m[35m (6.5ms)[0m  [1m[35mCREATE TABLE "solid_queue_processes" ("id" bigserial primary key, "kind" character varying NOT NULL, "last_heartbeat_at" timestamp(6) NOT NULL, "supervisor_id" bigint, "pid" integer NOT NULL, "hostname" character varying, "metadata" text, "created_at" timestamp(6) NOT NULL, "name" character varying NOT NULL) /*application='CustomerService'*/[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_processes_on_last_heartbeat_at" ON "solid_queue_processes" ("last_heartbeat_at") /*application='CustomerService'*/[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_processes_on_name_and_supervisor_id" ON "solid_queue_processes" ("name", "supervisor_id") /*application='CustomerService'*/[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_processes_on_supervisor_id" ON "solid_queue_processes" ("supervisor_id") /*application='CustomerService'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_ready_executions" CASCADE /*application='CustomerService'*/[0m
+  [1m[35m (6.9ms)[0m  [1m[35mCREATE TABLE "solid_queue_ready_executions" ("id" bigserial primary key, "job_id" bigint NOT NULL, "queue_name" character varying NOT NULL, "priority" integer DEFAULT 0 NOT NULL, "created_at" timestamp(6) NOT NULL) /*application='CustomerService'*/[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_ready_executions_on_job_id" ON "solid_queue_ready_executions" ("job_id") /*application='CustomerService'*/[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_poll_all" ON "solid_queue_ready_executions" ("priority", "job_id") /*application='CustomerService'*/[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_poll_by_queue" ON "solid_queue_ready_executions" ("queue_name", "priority", "job_id") /*application='CustomerService'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_recurring_executions" CASCADE /*application='CustomerService'*/[0m
+  [1m[35m (7.1ms)[0m  [1m[35mCREATE TABLE "solid_queue_recurring_executions" ("id" bigserial primary key, "job_id" bigint NOT NULL, "task_key" character varying NOT NULL, "run_at" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL) /*application='CustomerService'*/[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_recurring_executions_on_job_id" ON "solid_queue_recurring_executions" ("job_id") /*application='CustomerService'*/[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_recurring_executions_on_task_key_and_run_at" ON "solid_queue_recurring_executions" ("task_key", "run_at") /*application='CustomerService'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_recurring_tasks" CASCADE /*application='CustomerService'*/[0m
+  [1m[35m (7.2ms)[0m  [1m[35mCREATE TABLE "solid_queue_recurring_tasks" ("id" bigserial primary key, "key" character varying NOT NULL, "schedule" character varying NOT NULL, "command" character varying(2048), "class_name" character varying, "arguments" text, "queue_name" character varying, "priority" integer DEFAULT 0, "static" boolean DEFAULT TRUE NOT NULL, "description" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='CustomerService'*/[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_recurring_tasks_on_key" ON "solid_queue_recurring_tasks" ("key") /*application='CustomerService'*/[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_recurring_tasks_on_static" ON "solid_queue_recurring_tasks" ("static") /*application='CustomerService'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_scheduled_executions" CASCADE /*application='CustomerService'*/[0m
+  [1m[35m (6.9ms)[0m  [1m[35mCREATE TABLE "solid_queue_scheduled_executions" ("id" bigserial primary key, "job_id" bigint NOT NULL, "queue_name" character varying NOT NULL, "priority" integer DEFAULT 0 NOT NULL, "scheduled_at" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL) /*application='CustomerService'*/[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_scheduled_executions_on_job_id" ON "solid_queue_scheduled_executions" ("job_id") /*application='CustomerService'*/[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_dispatch_all" ON "solid_queue_scheduled_executions" ("scheduled_at", "priority", "job_id") /*application='CustomerService'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_semaphores" CASCADE /*application='CustomerService'*/[0m
+  [1m[35m (6.8ms)[0m  [1m[35mCREATE TABLE "solid_queue_semaphores" ("id" bigserial primary key, "key" character varying NOT NULL, "value" integer DEFAULT 1 NOT NULL, "expires_at" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='CustomerService'*/[0m
+  [1m[35m (4.4ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_semaphores_on_expires_at" ON "solid_queue_semaphores" ("expires_at") /*application='CustomerService'*/[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_semaphores_on_key_and_value" ON "solid_queue_semaphores" ("key", "value") /*application='CustomerService'*/[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_semaphores_on_key" ON "solid_queue_semaphores" ("key") /*application='CustomerService'*/[0m
+  [1m[35m (2.9ms)[0m  [1m[35mALTER TABLE "solid_queue_blocked_executions" ADD CONSTRAINT "fk_rails_4cd34e2228"
+FOREIGN KEY ("job_id")
+  REFERENCES "solid_queue_jobs" ("id")
+ ON DELETE CASCADE /*application='CustomerService'*/[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "solid_queue_claimed_executions" ADD CONSTRAINT "fk_rails_9cfe4d4944"
+FOREIGN KEY ("job_id")
+  REFERENCES "solid_queue_jobs" ("id")
+ ON DELETE CASCADE /*application='CustomerService'*/[0m
+  [1m[35m (2.0ms)[0m  [1m[35mALTER TABLE "solid_queue_failed_executions" ADD CONSTRAINT "fk_rails_39bbc7a631"
+FOREIGN KEY ("job_id")
+  REFERENCES "solid_queue_jobs" ("id")
+ ON DELETE CASCADE /*application='CustomerService'*/[0m
+  [1m[35m (1.1ms)[0m  [1m[35mALTER TABLE "solid_queue_ready_executions" ADD CONSTRAINT "fk_rails_81fcbd66af"
+FOREIGN KEY ("job_id")
+  REFERENCES "solid_queue_jobs" ("id")
+ ON DELETE CASCADE /*application='CustomerService'*/[0m
+  [1m[35m (1.9ms)[0m  [1m[35mALTER TABLE "solid_queue_recurring_executions" ADD CONSTRAINT "fk_rails_318a5533ed"
+FOREIGN KEY ("job_id")
+  REFERENCES "solid_queue_jobs" ("id")
+ ON DELETE CASCADE /*application='CustomerService'*/[0m
+  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "solid_queue_scheduled_executions" ADD CONSTRAINT "fk_rails_c4316f352d"
+FOREIGN KEY ("job_id")
+  REFERENCES "solid_queue_jobs" ("id")
+ ON DELETE CASCADE /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  [1m[35m (1.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (1) /*application='CustomerService'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='CustomerService'*/[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mRAILS_ENV[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Create (11.8ms)[0m  [1m[32mINSERT INTO "solid_queue_processes" ("kind", "last_heartbeat_at", "supervisor_id", "pid", "hostname", "metadata", "created_at", "name") VALUES ('Supervisor', '2025-10-17 13:41:06.003751', NULL, 1207343, 'bonkis-System-Product-Name', NULL, '2025-10-17 13:41:06.091286', 'supervisor-fb4ec6f302c1c746e6e2') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+SolidQueue-1.2.1 Register Supervisor (106.0ms)  pid: 1207343, hostname: "bonkis-System-Product-Name", process_id: 1, name: "supervisor-fb4ec6f302c1c746e6e2"
+  [1m[36mSolidQueue::ClaimedExecution Load (0.8ms)[0m  [1m[34mSELECT "solid_queue_claimed_executions".* FROM "solid_queue_claimed_executions" LEFT OUTER JOIN "solid_queue_processes" ON "solid_queue_processes"."id" = "solid_queue_claimed_executions"."process_id" WHERE "solid_queue_processes"."id" IS NULL /*application='CustomerService'*/[0m
+SolidQueue-1.2.1 Fail claimed jobs (9.6ms)  job_ids: [], process_ids: []
+SolidQueue-1.2.1 Started Supervisor (165.1ms)  pid: 1207343, hostname: "bonkis-System-Product-Name", process_id: 1, name: "supervisor-fb4ec6f302c1c746e6e2"
+  [1m[36mSolidQueue::Process Load (0.7ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."last_heartbeat_at" <= '2025-10-17 13:36:06.171458' AND "solid_queue_processes"."id" != 1 ORDER BY "solid_queue_processes"."id" ASC LIMIT 50 FOR UPDATE SKIP LOCKED /*application='CustomerService'*/[0m
+SolidQueue-1.2.1 Prune dead processes (11.9ms)  size: 0
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Create (1.9ms)[0m  [1m[32mINSERT INTO "solid_queue_processes" ("kind", "last_heartbeat_at", "supervisor_id", "pid", "hostname", "metadata", "created_at", "name") VALUES ('Worker', '2025-10-17 13:41:06.170621', 1, 1207498, 'bonkis-System-Product-Name', '{"polling_interval":0.1,"queues":"*","thread_pool_size":3}', '2025-10-17 13:41:06.178739', 'worker-5cfed5c7aebf0c7d2609') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Create (2.1ms)[0m  [1m[32mINSERT INTO "solid_queue_processes" ("kind", "last_heartbeat_at", "supervisor_id", "pid", "hostname", "metadata", "created_at", "name") VALUES ('Dispatcher', '2025-10-17 13:41:06.166310', 1, 1207495, 'bonkis-System-Product-Name', '{"polling_interval":1,"batch_size":500,"concurrency_maintenance_interval":600}', '2025-10-17 13:41:06.178036', 'dispatcher-9defb1739436359b8ddf') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (23.9ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+SolidQueue-1.2.1 Register Dispatcher (90.5ms)  pid: 1207495, hostname: "bonkis-System-Product-Name", process_id: 3, name: "dispatcher-9defb1739436359b8ddf"
+SolidQueue-1.2.1 Started Dispatcher (98.4ms)  pid: 1207495, hostname: "bonkis-System-Product-Name", process_id: 3, name: "dispatcher-9defb1739436359b8ddf", polling_interval: 1, batch_size: 500, concurrency_maintenance_interval: 600
+  [1m[36mTRANSACTION (37.4ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+SolidQueue-1.2.1 Register Worker (99.8ms)  pid: 1207498, hostname: "bonkis-System-Product-Name", process_id: 2, name: "worker-5cfed5c7aebf0c7d2609"
+SolidQueue-1.2.1 Started Worker (106.6ms)  pid: 1207498, hostname: "bonkis-System-Product-Name", process_id: 2, name: "worker-5cfed5c7aebf0c7d2609", polling_interval: 0.1, queues: "*", thread_pool_size: 3
+  [1m[36mSolidQueue::Semaphore Pluck (1.4ms)[0m  [1m[34mSELECT "solid_queue_semaphores"."id" FROM "solid_queue_semaphores" WHERE "solid_queue_semaphores"."expires_at" < '2025-10-17 13:41:06.272489' ORDER BY "solid_queue_semaphores"."id" ASC LIMIT 500 /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::BlockedExecution Pluck (1.6ms)[0m  [1m[34mSELECT DISTINCT "solid_queue_blocked_executions"."concurrency_key" FROM "solid_queue_blocked_executions" WHERE "solid_queue_blocked_executions"."expires_at" < '2025-10-17 13:41:06.342954' ORDER BY "solid_queue_blocked_executions"."concurrency_key" ASC LIMIT 500 /*application='CustomerService'*/[0m
+SolidQueue-1.2.1 Unblock jobs (14.7ms)  limit: 500, size: 0
+Started GET "/health" for ::1 at 2025-10-17 13:42:05 -0500
+  
+LoadError (cannot load such file -- mission_control/jobs):
+  
+config/routes.rb:1:in '<main>'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (2.9ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.5ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:42:06.126154' WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (23.9ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.5ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.8ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:42:06.292624' WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (2.8ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:42:06.310703' WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+Started GET "/health" for ::1 at 2025-10-17 13:42:47 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  
+ActionController::RoutingError (No route matches [GET] "/health"):
+  
+Started GET "/favicon.ico" for ::1 at 2025-10-17 13:42:48 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.4ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:43:06.177082' WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (27.2ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:43:06.306823' WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (26.3ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (13.9ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:43:06.340178' WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (7.2ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+Started GET "/health" for ::1 at 2025-10-17 13:43:07 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/health"):
+  
+Started GET "/api/v1/health" for ::1 at 2025-10-17 13:43:52 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/api/v1/health"):
+  
+Started GET "/health" for ::1 at 2025-10-17 13:44:01 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/health"):
+  
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.7ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:44:06.213653' WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.2ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:44:06.338396' WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.1ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:44:06.353356' WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (34.0ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (11.8ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.8ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:45:06.235283' WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (32.5ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.2ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.1ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:45:06.377210' WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:45:06.376951' WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (31.7ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (44.1ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (0.9ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."last_heartbeat_at" <= '2025-10-17 13:41:06.195306' AND "solid_queue_processes"."id" != 1 ORDER BY "solid_queue_processes"."id" ASC LIMIT 50 FOR UPDATE SKIP LOCKED /*application='CustomerService'*/[0m
+SolidQueue-1.2.1 Prune dead processes (61.0ms)  size: 0
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.6ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:46:06.285285' WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (32.7ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.2ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.4ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:46:06.417880' WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.2ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:46:06.429297' WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (33.5ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (35.2ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.9ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:47:06.331637' WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (34.3ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (6.0ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.1ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:47:06.465132' WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (5.1ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.1ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:47:06.479806' WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (34.0ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (95.2ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (2.2ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.4ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:48:06.376089' WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (29.3ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:48:06.520248' WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (28.3ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.4ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:48:06.591609' WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (29.4ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.4ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:49:06.412057' WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (30.4ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:49:06.553278' WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (29.1ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.2ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:49:06.645688' WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (30.1ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+Started GET "/health" for ::1 at 2025-10-17 13:49:25 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  
+LoadError (cannot load such file -- mission_control/jobs):
+  
+config/routes.rb:1:in '<main>'
+Started GET "/health" for ::1 at 2025-10-17 13:49:35 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/health"):
+  
+Started GET "/health" for ::1 at 2025-10-17 13:49:36 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/health"):
+  
+Started GET "/health" for ::1 at 2025-10-17 13:49:37 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/health"):
+  
+Started GET "/health" for ::1 at 2025-10-17 13:49:38 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/health"):
+  
+Started GET "/health" for ::1 at 2025-10-17 13:49:38 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/health"):
+  
+Started GET "/" for ::1 at 2025-10-17 13:49:45 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/"):
+  
+Started GET "/" for ::1 at 2025-10-17 13:49:47 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/"):
+  
+Started GET "/.well-known/appspecific/com.chrome.devtools.json" for ::1 at 2025-10-17 13:49:49 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/.well-known/appspecific/com.chrome.devtools.json"):
+  
+Started GET "/" for ::1 at 2025-10-17 13:49:53 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/"):
+  
+Started GET "/.well-known/appspecific/com.chrome.devtools.json" for ::1 at 2025-10-17 13:49:53 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/.well-known/appspecific/com.chrome.devtools.json"):
+  
+Started GET "/" for ::1 at 2025-10-17 13:49:54 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/"):
+  
+Started GET "/.well-known/appspecific/com.chrome.devtools.json" for ::1 at 2025-10-17 13:49:54 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/.well-known/appspecific/com.chrome.devtools.json"):
+  
+Started GET "/health" for ::1 at 2025-10-17 13:49:59 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/health"):
+  
+Started GET "/.well-known/appspecific/com.chrome.devtools.json" for ::1 at 2025-10-17 13:49:59 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/.well-known/appspecific/com.chrome.devtools.json"):
+  
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (5.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.0ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:50:06.460544' WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (4.9ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (4.9ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.0ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:50:06.593964' WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (32.1ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (2.5ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:50:06.681611' WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (0.7ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."last_heartbeat_at" <= '2025-10-17 13:46:06.247535' AND "solid_queue_processes"."id" != 1 ORDER BY "solid_queue_processes"."id" ASC LIMIT 50 FOR UPDATE SKIP LOCKED /*application='CustomerService'*/[0m
+SolidQueue-1.2.1 Prune dead processes (8.1ms)  size: 0
+  [1m[36mSolidQueue::Semaphore Pluck (0.6ms)[0m  [1m[34mSELECT "solid_queue_semaphores"."id" FROM "solid_queue_semaphores" WHERE "solid_queue_semaphores"."expires_at" < '2025-10-17 13:51:06.359093' ORDER BY "solid_queue_semaphores"."id" ASC LIMIT 500 /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::BlockedExecution Pluck (0.7ms)[0m  [1m[34mSELECT DISTINCT "solid_queue_blocked_executions"."concurrency_key" FROM "solid_queue_blocked_executions" WHERE "solid_queue_blocked_executions"."expires_at" < '2025-10-17 13:51:06.369058' ORDER BY "solid_queue_blocked_executions"."concurrency_key" ASC LIMIT 500 /*application='CustomerService'*/[0m
+SolidQueue-1.2.1 Unblock jobs (11.2ms)  limit: 500, size: 0
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.4ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:51:06.478309' WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.6ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:51:06.638030' WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (33.2ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:51:06.686393' WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:52:06.493784' WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (34.0ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (4.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:52:06.681550' WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:52:06.691252' WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (33.1ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (39.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.4ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:53:06.544357' WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (36.7ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (4.9ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.9ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:53:06.729890' WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (7.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (2.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:53:06.747611' WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (50.0ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (36.5ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (5.2ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.1ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:54:06.596459' WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (38.0ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:54:06.792682' WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.6ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:54:06.796152' WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (38.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (48.8ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (2.9ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.6ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:55:06.655242' WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (4.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:55:06.837609' WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.1ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.5ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:55:06.873683' WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (38.8ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (17.8ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (0.7ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."last_heartbeat_at" <= '2025-10-17 13:51:06.256155' AND "solid_queue_processes"."id" != 1 ORDER BY "solid_queue_processes"."id" ASC LIMIT 50 FOR UPDATE SKIP LOCKED /*application='CustomerService'*/[0m
+SolidQueue-1.2.1 Prune dead processes (12.9ms)  size: 0
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.4ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:56:06.673519' WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:56:06.887436' WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (4.4ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.4ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:56:06.897838' WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (8.5ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (3.2ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.8ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:57:06.686640' WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (7.8ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.1ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:57:06.897616' WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (7.0ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.1ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:57:06.911167' WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (7.8ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+Started GET "/health" for ::1 at 2025-10-17 13:57:55 -0500
+  
+LoadError (cannot load such file -- mission_control/jobs):
+  
+config/routes.rb:1:in '<main>'
+Started GET "/.well-known/appspecific/com.chrome.devtools.json" for ::1 at 2025-10-17 13:57:55 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/.well-known/appspecific/com.chrome.devtools.json"):
+  
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.5ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:58:06.711492' WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (5.4ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.0ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:58:06.916899' WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (5.4ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.9ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:58:06.930077' WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (9.9ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (10.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+Started GET "/health" for ::1 at 2025-10-17 13:58:34 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  
+LoadError (cannot load such file -- mission_control/jobs):
+  
+config/routes.rb:1:in '<main>'
+Started GET "/.well-known/appspecific/com.chrome.devtools.json" for ::1 at 2025-10-17 13:58:35 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/.well-known/appspecific/com.chrome.devtools.json"):
+  
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (3.2ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.8ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:59:06.729227' WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (4.8ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (5.0ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.1ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:59:06.943096' WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (5.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.1ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:59:06.957726' WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (16.8ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (19.7ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Destroy (1.5ms)[0m  [1m[31mDELETE FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Destroy (1.1ms)[0m  [1m[31mDELETE FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (3.0ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+SolidQueue-1.2.1 Deregister Dispatcher (8.6ms)  process_id: 3, pid: 1207495, hostname: "bonkis-System-Product-Name", name: "dispatcher-9defb1739436359b8ddf", last_heartbeat_at: "2025-10-17T13:59:06-05:00", claimed_size: nil, pruned: false
+SolidQueue-1.2.1 Shutdown Dispatcher (10.4ms)  pid: 1207495, hostname: "bonkis-System-Product-Name", process_id: 3, name: "dispatcher-9defb1739436359b8ddf", polling_interval: 1, batch_size: 500, concurrency_maintenance_interval: 600
+  [1m[36mSolidQueue::ClaimedExecution Load (0.4ms)[0m  [1m[34mSELECT "solid_queue_claimed_executions".* FROM "solid_queue_claimed_executions" WHERE "solid_queue_claimed_executions"."process_id" = 2 /*application='CustomerService'*/[0m
+SolidQueue-1.2.1 Release claimed jobs (9.2ms)  size: 0
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+SolidQueue-1.2.1 Deregister Worker (35.2ms)  process_id: 2, pid: 1207498, hostname: "bonkis-System-Product-Name", name: "worker-5cfed5c7aebf0c7d2609", last_heartbeat_at: "2025-10-17T13:59:06-05:00", claimed_size: nil, pruned: false
+SolidQueue-1.2.1 Shutdown Worker (40.0ms)  pid: 1207498, hostname: "bonkis-System-Product-Name", process_id: 2, name: "worker-5cfed5c7aebf0c7d2609", polling_interval: 0.1, queues: "*", thread_pool_size: 3
+SolidQueue-1.2.1 Supervisor terminated gracefully (113.8ms)  process_id: 1, supervisor_pid: 1207343, supervised_processes: [1207495, 1207498]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Destroy (1.4ms)[0m  [1m[31mDELETE FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (16.5ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mSolidQueue::Process Load (0.4ms)[0m  [1m[34mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."supervisor_id" = 1 /*application='CustomerService'*/[0m
+SolidQueue-1.2.1 Deregister Supervisor (42.4ms)  process_id: 1, pid: 1207343, hostname: "bonkis-System-Product-Name", name: "supervisor-fb4ec6f302c1c746e6e2", last_heartbeat_at: "2025-10-17T13:59:06-05:00", claimed_size: nil, pruned: false
+SolidQueue-1.2.1 Shutdown Supervisor (45.9ms)  pid: 1207343, hostname: "bonkis-System-Product-Name", process_id: 1, name: "supervisor-fb4ec6f302c1c746e6e2"
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+Started GET "/health" for ::1 at 2025-10-17 14:02:41 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  
+LoadError (cannot load such file -- mission_control/jobs):
+  
+config/routes.rb:1:in '<main>'
+Started GET "/.well-known/appspecific/com.chrome.devtools.json" for ::1 at 2025-10-17 14:02:41 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/.well-known/appspecific/com.chrome.devtools.json"):
+  
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+Started GET "/health" for ::1 at 2025-10-17 14:03:12 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+Started GET "/.well-known/appspecific/com.chrome.devtools.json" for ::1 at 2025-10-17 14:03:12 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/.well-known/appspecific/com.chrome.devtools.json"):
+  
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+Started GET "/health" for ::1 at 2025-10-17 14:05:54 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+Started GET "/api/v1/customers/1" for ::1 at 2025-10-17 14:06:44 -0500
+Processing by Api::V1::CustomersController#show as */*
+  Parameters: {"id" => "1"}
+  [1m[36mCustomer Load (0.5ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = 1 LIMIT 1 /*action='show',application='CustomerService',controller='customers'*/[0m
+  ↳ app/services/customers/show_service.rb:24:in 'Customers::ShowService#fetch_customer'
+Completed 404 Not Found in 66ms (Views: 0.3ms | ActiveRecord: 32.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mRAILS_ENV[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+  [1m[36mCustomer Load (0.6ms)[0m  [1m[34mSELECT "customers".* FROM "customers" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Destroy (1.7ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = 9 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (36.3ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Destroy (1.1ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = 10 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (7.0ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Destroy (3.7ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = 11 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Destroy (2.6ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = 12 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Destroy (6.1ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = 13 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Destroy (1.1ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = 14 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Destroy (1.2ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = 15 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Destroy (1.9ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = 16 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Destroy (1.3ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = 17 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Destroy (3.8ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = 18 /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.7ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('juan.perez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.3ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Juan Pérez', 'juan.perez@example.com', 'Calle 10 #45-67, Medellín, Antioquia', '+57 300 123 4567', 0, '2025-10-17 14:07:06.466354', '2025-10-17 14:07:06.466354') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('maria.garcia@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.3ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('María García', 'maria.garcia@example.com', 'Carrera 50 #30-20, Bogotá, Cundinamarca', '+57 310 987 6543', 0, '2025-10-17 14:07:06.479647', '2025-10-17 14:07:06.479647') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (24.4ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('carlos.rodriguez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.3ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Carlos Rodríguez', 'carlos.rodriguez@example.com', 'Avenida 3 #12-34, Cali, Valle del Cauca', '+57 320 456 7890', 0, '2025-10-17 14:07:06.515703', '2025-10-17 14:07:06.515703') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('ana.martinez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.3ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Ana Martínez', 'ana.martinez@example.com', 'Calle 80 #15-30, Barranquilla, Atlántico', '+57 315 234 5678', 0, '2025-10-17 14:07:06.532872', '2025-10-17 14:07:06.532872') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('luis.hernandez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.3ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Luis Hernández', 'luis.hernandez@example.com', 'Carrera 20 #40-50, Cartagena, Bolívar', '+57 301 876 5432', 0, '2025-10-17 14:07:06.548459', '2025-10-17 14:07:06.548459') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('laura.gomez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.2ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Laura Gómez', 'laura.gomez@example.com', 'Calle 25 #30-15, Bucaramanga, Santander', '+57 311 345 6789', 0, '2025-10-17 14:07:06.559344', '2025-10-17 14:07:06.559344') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (12.6ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('pedro.sanchez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.3ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Pedro Sánchez', 'pedro.sanchez@example.com', 'Avenida 7 #22-44, Pereira, Risaralda', '+57 321 654 3210', 0, '2025-10-17 14:07:06.580139', '2025-10-17 14:07:06.580139') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('sofia.lopez@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.2ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Sofia López', 'sofia.lopez@example.com', 'Carrera 15 #50-60, Manizales, Caldas', '+57 312 567 8901', 0, '2025-10-17 14:07:06.585009', '2025-10-17 14:07:06.585009') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('diego.torres@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.2ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Diego Torres', 'diego.torres@example.com', 'Calle 35 #18-25, Santa Marta, Magdalena', '+57 314 890 1234', 0, '2025-10-17 14:07:06.594604', '2025-10-17 14:07:06.594604') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='CustomerService'*/[0m
+  [1m[36mCustomer Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER('valentina.ruiz@example.com') LIMIT 1 /*application='CustomerService'*/[0m
+  [1m[36mCustomer Create (0.2ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "address", "phone", "orders_count", "created_at", "updated_at") VALUES ('Valentina Ruiz', 'valentina.ruiz@example.com', 'Avenida 10 #28-40, Ibagué, Tolima', '+57 316 123 4567', 0, '2025-10-17 14:07:06.602070', '2025-10-17 14:07:06.602070') RETURNING "id" /*application='CustomerService'*/[0m
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mCOMMIT /*application='CustomerService'*/[0m
+  [1m[36mCustomer Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "customers" /*application='CustomerService'*/[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+Started GET "/api/v1/customers/1" for ::1 at 2025-10-17 14:07:15 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='CustomerService'*/[0m
+Processing by Api::V1::CustomersController#show as */*
+  Parameters: {"id" => "1"}
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = 1 LIMIT 1 /*action='show',application='CustomerService',controller='customers'*/[0m
+  ↳ app/services/customers/show_service.rb:24:in 'Customers::ShowService#fetch_customer'
+Completed 404 Not Found in 57ms (Views: 0.2ms | ActiveRecord: 31.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/customers/10" for ::1 at 2025-10-17 14:07:24 -0500
+Processing by Api::V1::CustomersController#show as */*
+  Parameters: {"id" => "10"}
+  [1m[36mCustomer Load (2.7ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = 10 LIMIT 1 /*action='show',application='CustomerService',controller='customers'*/[0m
+  ↳ app/services/customers/show_service.rb:24:in 'Customers::ShowService#fetch_customer'
+Completed 404 Not Found in 18ms (Views: 0.2ms | ActiveRecord: 2.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/customers/30" for ::1 at 2025-10-17 14:07:29 -0500
+Processing by Api::V1::CustomersController#show as */*
+  Parameters: {"id" => "30"}
+  [1m[36mCustomer Load (0.6ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = 30 LIMIT 1 /*action='show',application='CustomerService',controller='customers'*/[0m
+  ↳ app/services/customers/show_service.rb:24:in 'Customers::ShowService#fetch_customer'
+Completed 404 Not Found in 3ms (Views: 0.2ms | ActiveRecord: 0.6ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+  [1m[36mCustomer Load (3.8ms)[0m  [1m[34mSELECT "customers".* FROM "customers" ORDER BY "customers"."id" DESC LIMIT 1 /*application='CustomerService'*/[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+  [1m[36mCustomer Load (3.9ms)[0m  [1m[34mSELECT "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT 1 /*application='CustomerService'*/[0m
+Started GET "/api/v1/customers/19" for ::1 at 2025-10-17 14:08:41 -0500
+Processing by Api::V1::CustomersController#show as */*
+  Parameters: {"id" => "19"}
+  [1m[36mCustomer Load (0.6ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = 19 LIMIT 1 /*action='show',application='CustomerService',controller='customers'*/[0m
+  ↳ app/services/customers/show_service.rb:24:in 'Customers::ShowService#fetch_customer'
+Completed 200 OK in 38ms (Views: 0.2ms | ActiveRecord: 0.6ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/customers/19" for ::1 at 2025-10-17 14:09:12 -0500
+Processing by Api::V1::CustomersController#show as */*
+  Parameters: {"id" => "19"}
+  [1m[36mCustomer Load (0.5ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = 19 LIMIT 1 /*action='show',application='CustomerService',controller='customers'*/[0m
+  ↳ app/services/customers/show_service.rb:24:in 'Customers::ShowService#fetch_customer'
+Completed 200 OK in 4ms (Views: 0.4ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+

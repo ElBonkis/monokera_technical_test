@@ -1,0 +1,491 @@
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mCUSTOMER_SERVICE_URL[0m, and [36mREDIS_URL[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mCUSTOMER_SERVICE_URL[0m, [36mRAILS_ENV[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected to amqp://admin:admin@localhost:5672
+[RabbitMQ] Connection closed
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mCUSTOMER_SERVICE_URL[0m, [36mRAILS_ENV[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected to amqp://admin:admin@localhost:5672
+  [1m[35m (17.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='OrderService'*/[0m
+  [1m[35m (7.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='OrderService'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6719400367919003940) /*application='OrderService'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='OrderService'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='OrderService'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-10-17 02:23:42.305719', '2025-10-17 02:23:42.305720') RETURNING "key" /*application='OrderService'*/[0m
+Migrating to CreateOrders (20251017071311)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[35m (7.1ms)[0m  [1m[35mCREATE TABLE "orders" ("id" bigserial primary key, "customer_id" integer NOT NULL, "product_name" character varying NOT NULL, "quantity" integer DEFAULT 1 NOT NULL, "price" decimal(10,2) NOT NULL, "status" character varying DEFAULT 'pending' NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='OrderService'*/[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE INDEX "index_orders_on_customer_id" ON "orders" ("customer_id") /*application='OrderService'*/[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE INDEX "index_orders_on_status" ON "orders" ("status") /*application='OrderService'*/[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE INDEX "index_orders_on_created_at" ON "orders" ("created_at") /*application='OrderService'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251017071311') RETURNING "version" /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6719400367919003940) /*application='OrderService'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='OrderService'*/[0m
+[RabbitMQ] Connection closed
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mCUSTOMER_SERVICE_URL[0m, [36mRAILS_ENV[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected to amqp://admin:admin@localhost:5672
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='OrderService'*/[0m
+  [1m[36mOrder Load (0.5ms)[0m  [1m[34mSELECT "orders".* FROM "orders" /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mOrder Create (2.5ms)[0m  [1m[32mINSERT INTO "orders" ("customer_id", "product_name", "quantity", "price", "status", "created_at", "updated_at") VALUES (1, 'Laptop HP', 1, 2500000.0, 'completed', '2025-10-17 02:23:56.873760', '2025-10-17 02:23:56.873760') RETURNING "id" /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (41.5ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mOrder Create (1.8ms)[0m  [1m[32mINSERT INTO "orders" ("customer_id", "product_name", "quantity", "price", "status", "created_at", "updated_at") VALUES (1, 'Mouse Logitech', 2, 50000.0, 'completed', '2025-10-17 02:23:56.928239', '2025-10-17 02:23:56.928239') RETURNING "id" /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mOrder Create (3.6ms)[0m  [1m[32mINSERT INTO "orders" ("customer_id", "product_name", "quantity", "price", "status", "created_at", "updated_at") VALUES (2, 'Teclado Mecánico', 1, 350000.0, 'processing', '2025-10-17 02:23:56.954726', '2025-10-17 02:23:56.954726') RETURNING "id" /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mOrder Create (1.9ms)[0m  [1m[32mINSERT INTO "orders" ("customer_id", "product_name", "quantity", "price", "status", "created_at", "updated_at") VALUES (3, 'Monitor Samsung', 1, 800000.0, 'pending', '2025-10-17 02:23:56.980487', '2025-10-17 02:23:56.980487') RETURNING "id" /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mOrder Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "orders" /*application='OrderService'*/[0m
+[RabbitMQ] Connection closed
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mCUSTOMER_SERVICE_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Order Service
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='OrderService'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Update (4.7ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = 'development', "updated_at" = '2025-10-17 13:33:58.031129' WHERE "ar_internal_metadata"."key" = 'environment' /*application='OrderService'*/[0m
+[RabbitMQ] Closed
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mCUSTOMER_SERVICE_URL[0m, [36mRAILS_ENV[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Order Service
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='OrderService'*/[0m
+  [1m[36mOrder Load (0.7ms)[0m  [1m[34mSELECT "orders".* FROM "orders" /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mOrder Create (1.9ms)[0m  [1m[32mINSERT INTO "orders" ("customer_id", "product_name", "quantity", "price", "status", "created_at", "updated_at") VALUES (1, 'Laptop HP', 1, 2500000.0, 'completed', '2025-10-17 13:34:08.043909', '2025-10-17 13:34:08.043909') RETURNING "id" /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (10.7ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mOrder Create (1.6ms)[0m  [1m[32mINSERT INTO "orders" ("customer_id", "product_name", "quantity", "price", "status", "created_at", "updated_at") VALUES (1, 'Mouse Logitech', 2, 50000.0, 'completed', '2025-10-17 13:34:08.066747', '2025-10-17 13:34:08.066747') RETURNING "id" /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (1.8ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mOrder Create (3.8ms)[0m  [1m[32mINSERT INTO "orders" ("customer_id", "product_name", "quantity", "price", "status", "created_at", "updated_at") VALUES (2, 'Teclado Mecánico', 1, 350000.0, 'processing', '2025-10-17 13:34:08.091737', '2025-10-17 13:34:08.091737') RETURNING "id" /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mOrder Create (1.7ms)[0m  [1m[32mINSERT INTO "orders" ("customer_id", "product_name", "quantity", "price", "status", "created_at", "updated_at") VALUES (3, 'Monitor Samsung', 1, 800000.0, 'pending', '2025-10-17 13:34:08.115161', '2025-10-17 13:34:08.115161') RETURNING "id" /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mOrder Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "orders" /*application='OrderService'*/[0m
+[RabbitMQ] Closed
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mCUSTOMER_SERVICE_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Order Service
+  [1m[36mOrder Count (36.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "orders" /*application='OrderService'*/[0m
+[RabbitMQ] Closed
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mCUSTOMER_SERVICE_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Order Service
+[RabbitMQ] Closed
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mCUSTOMER_SERVICE_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Order Service
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_blocked_executions" CASCADE /*application='OrderService'*/[0m
+  [1m[35m (46.5ms)[0m  [1m[35mCREATE TABLE "solid_queue_blocked_executions" ("id" bigserial primary key, "job_id" bigint NOT NULL, "queue_name" character varying NOT NULL, "priority" integer DEFAULT 0 NOT NULL, "concurrency_key" character varying NOT NULL, "expires_at" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL) /*application='OrderService'*/[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_blocked_executions_for_release" ON "solid_queue_blocked_executions" ("concurrency_key", "priority", "job_id") /*application='OrderService'*/[0m
+  [1m[35m (4.9ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_blocked_executions_for_maintenance" ON "solid_queue_blocked_executions" ("expires_at", "concurrency_key") /*application='OrderService'*/[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_blocked_executions_on_job_id" ON "solid_queue_blocked_executions" ("job_id") /*application='OrderService'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_claimed_executions" CASCADE /*application='OrderService'*/[0m
+  [1m[35m (5.0ms)[0m  [1m[35mCREATE TABLE "solid_queue_claimed_executions" ("id" bigserial primary key, "job_id" bigint NOT NULL, "process_id" bigint, "created_at" timestamp(6) NOT NULL) /*application='OrderService'*/[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_claimed_executions_on_job_id" ON "solid_queue_claimed_executions" ("job_id") /*application='OrderService'*/[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_claimed_executions_on_process_id_and_job_id" ON "solid_queue_claimed_executions" ("process_id", "job_id") /*application='OrderService'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_failed_executions" CASCADE /*application='OrderService'*/[0m
+  [1m[35m (7.4ms)[0m  [1m[35mCREATE TABLE "solid_queue_failed_executions" ("id" bigserial primary key, "job_id" bigint NOT NULL, "error" text, "created_at" timestamp(6) NOT NULL) /*application='OrderService'*/[0m
+  [1m[35m (3.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_failed_executions_on_job_id" ON "solid_queue_failed_executions" ("job_id") /*application='OrderService'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_jobs" CASCADE /*application='OrderService'*/[0m
+  [1m[35m (8.1ms)[0m  [1m[35mCREATE TABLE "solid_queue_jobs" ("id" bigserial primary key, "queue_name" character varying NOT NULL, "class_name" character varying NOT NULL, "arguments" text, "priority" integer DEFAULT 0 NOT NULL, "active_job_id" character varying, "scheduled_at" timestamp(6), "finished_at" timestamp(6), "concurrency_key" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='OrderService'*/[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_jobs_on_active_job_id" ON "solid_queue_jobs" ("active_job_id") /*application='OrderService'*/[0m
+  [1m[35m (3.9ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_jobs_on_class_name" ON "solid_queue_jobs" ("class_name") /*application='OrderService'*/[0m
+  [1m[35m (3.9ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_jobs_on_finished_at" ON "solid_queue_jobs" ("finished_at") /*application='OrderService'*/[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_jobs_for_filtering" ON "solid_queue_jobs" ("queue_name", "finished_at") /*application='OrderService'*/[0m
+  [1m[35m (5.1ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_jobs_for_alerting" ON "solid_queue_jobs" ("scheduled_at", "finished_at") /*application='OrderService'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_pauses" CASCADE /*application='OrderService'*/[0m
+  [1m[35m (7.7ms)[0m  [1m[35mCREATE TABLE "solid_queue_pauses" ("id" bigserial primary key, "queue_name" character varying NOT NULL, "created_at" timestamp(6) NOT NULL) /*application='OrderService'*/[0m
+  [1m[35m (4.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_pauses_on_queue_name" ON "solid_queue_pauses" ("queue_name") /*application='OrderService'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_processes" CASCADE /*application='OrderService'*/[0m
+  [1m[35m (6.4ms)[0m  [1m[35mCREATE TABLE "solid_queue_processes" ("id" bigserial primary key, "kind" character varying NOT NULL, "last_heartbeat_at" timestamp(6) NOT NULL, "supervisor_id" bigint, "pid" integer NOT NULL, "hostname" character varying, "metadata" text, "created_at" timestamp(6) NOT NULL, "name" character varying NOT NULL) /*application='OrderService'*/[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_processes_on_last_heartbeat_at" ON "solid_queue_processes" ("last_heartbeat_at") /*application='OrderService'*/[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_processes_on_name_and_supervisor_id" ON "solid_queue_processes" ("name", "supervisor_id") /*application='OrderService'*/[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_processes_on_supervisor_id" ON "solid_queue_processes" ("supervisor_id") /*application='OrderService'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_ready_executions" CASCADE /*application='OrderService'*/[0m
+  [1m[35m (7.1ms)[0m  [1m[35mCREATE TABLE "solid_queue_ready_executions" ("id" bigserial primary key, "job_id" bigint NOT NULL, "queue_name" character varying NOT NULL, "priority" integer DEFAULT 0 NOT NULL, "created_at" timestamp(6) NOT NULL) /*application='OrderService'*/[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_ready_executions_on_job_id" ON "solid_queue_ready_executions" ("job_id") /*application='OrderService'*/[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_poll_all" ON "solid_queue_ready_executions" ("priority", "job_id") /*application='OrderService'*/[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_poll_by_queue" ON "solid_queue_ready_executions" ("queue_name", "priority", "job_id") /*application='OrderService'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_recurring_executions" CASCADE /*application='OrderService'*/[0m
+  [1m[35m (7.6ms)[0m  [1m[35mCREATE TABLE "solid_queue_recurring_executions" ("id" bigserial primary key, "job_id" bigint NOT NULL, "task_key" character varying NOT NULL, "run_at" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL) /*application='OrderService'*/[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_recurring_executions_on_job_id" ON "solid_queue_recurring_executions" ("job_id") /*application='OrderService'*/[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_recurring_executions_on_task_key_and_run_at" ON "solid_queue_recurring_executions" ("task_key", "run_at") /*application='OrderService'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_recurring_tasks" CASCADE /*application='OrderService'*/[0m
+  [1m[35m (7.6ms)[0m  [1m[35mCREATE TABLE "solid_queue_recurring_tasks" ("id" bigserial primary key, "key" character varying NOT NULL, "schedule" character varying NOT NULL, "command" character varying(2048), "class_name" character varying, "arguments" text, "queue_name" character varying, "priority" integer DEFAULT 0, "static" boolean DEFAULT TRUE NOT NULL, "description" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='OrderService'*/[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_recurring_tasks_on_key" ON "solid_queue_recurring_tasks" ("key") /*application='OrderService'*/[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_recurring_tasks_on_static" ON "solid_queue_recurring_tasks" ("static") /*application='OrderService'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_scheduled_executions" CASCADE /*application='OrderService'*/[0m
+  [1m[35m (7.1ms)[0m  [1m[35mCREATE TABLE "solid_queue_scheduled_executions" ("id" bigserial primary key, "job_id" bigint NOT NULL, "queue_name" character varying NOT NULL, "priority" integer DEFAULT 0 NOT NULL, "scheduled_at" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL) /*application='OrderService'*/[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_scheduled_executions_on_job_id" ON "solid_queue_scheduled_executions" ("job_id") /*application='OrderService'*/[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_dispatch_all" ON "solid_queue_scheduled_executions" ("scheduled_at", "priority", "job_id") /*application='OrderService'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "solid_queue_semaphores" CASCADE /*application='OrderService'*/[0m
+  [1m[35m (6.1ms)[0m  [1m[35mCREATE TABLE "solid_queue_semaphores" ("id" bigserial primary key, "key" character varying NOT NULL, "value" integer DEFAULT 1 NOT NULL, "expires_at" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='OrderService'*/[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_semaphores_on_expires_at" ON "solid_queue_semaphores" ("expires_at") /*application='OrderService'*/[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE INDEX "index_solid_queue_semaphores_on_key_and_value" ON "solid_queue_semaphores" ("key", "value") /*application='OrderService'*/[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_solid_queue_semaphores_on_key" ON "solid_queue_semaphores" ("key") /*application='OrderService'*/[0m
+  [1m[35m (3.3ms)[0m  [1m[35mALTER TABLE "solid_queue_blocked_executions" ADD CONSTRAINT "fk_rails_4cd34e2228"
+FOREIGN KEY ("job_id")
+  REFERENCES "solid_queue_jobs" ("id")
+ ON DELETE CASCADE /*application='OrderService'*/[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "solid_queue_claimed_executions" ADD CONSTRAINT "fk_rails_9cfe4d4944"
+FOREIGN KEY ("job_id")
+  REFERENCES "solid_queue_jobs" ("id")
+ ON DELETE CASCADE /*application='OrderService'*/[0m
+  [1m[35m (2.0ms)[0m  [1m[35mALTER TABLE "solid_queue_failed_executions" ADD CONSTRAINT "fk_rails_39bbc7a631"
+FOREIGN KEY ("job_id")
+  REFERENCES "solid_queue_jobs" ("id")
+ ON DELETE CASCADE /*application='OrderService'*/[0m
+  [1m[35m (1.1ms)[0m  [1m[35mALTER TABLE "solid_queue_ready_executions" ADD CONSTRAINT "fk_rails_81fcbd66af"
+FOREIGN KEY ("job_id")
+  REFERENCES "solid_queue_jobs" ("id")
+ ON DELETE CASCADE /*application='OrderService'*/[0m
+  [1m[35m (2.0ms)[0m  [1m[35mALTER TABLE "solid_queue_recurring_executions" ADD CONSTRAINT "fk_rails_318a5533ed"
+FOREIGN KEY ("job_id")
+  REFERENCES "solid_queue_jobs" ("id")
+ ON DELETE CASCADE /*application='OrderService'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "solid_queue_scheduled_executions" ADD CONSTRAINT "fk_rails_c4316f352d"
+FOREIGN KEY ("job_id")
+  REFERENCES "solid_queue_jobs" ("id")
+ ON DELETE CASCADE /*application='OrderService'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='OrderService'*/[0m
+  [1m[35m (1.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (1) /*application='OrderService'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='OrderService'*/[0m
+[RabbitMQ] Closed
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mCUSTOMER_SERVICE_URL[0m, [36mRAILS_ENV[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Order Service
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Create (11.1ms)[0m  [1m[32mINSERT INTO "solid_queue_processes" ("kind", "last_heartbeat_at", "supervisor_id", "pid", "hostname", "metadata", "created_at", "name") VALUES ('Supervisor', '2025-10-17 13:41:32.032676', NULL, 1208206, 'bonkis-System-Product-Name', NULL, '2025-10-17 13:41:32.133704', 'supervisor-9cecc63dea16a67a5807') RETURNING "id" /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (24.3ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+SolidQueue-1.2.1 Register Supervisor (143.3ms)  pid: 1208206, hostname: "bonkis-System-Product-Name", process_id: 1, name: "supervisor-9cecc63dea16a67a5807"
+  [1m[36mSolidQueue::ClaimedExecution Load (0.9ms)[0m  [1m[34mSELECT "solid_queue_claimed_executions".* FROM "solid_queue_claimed_executions" LEFT OUTER JOIN "solid_queue_processes" ON "solid_queue_processes"."id" = "solid_queue_claimed_executions"."process_id" WHERE "solid_queue_processes"."id" IS NULL /*application='OrderService'*/[0m
+SolidQueue-1.2.1 Fail claimed jobs (8.9ms)  job_ids: [], process_ids: []
+SolidQueue-1.2.1 Started Supervisor (207.0ms)  pid: 1208206, hostname: "bonkis-System-Product-Name", process_id: 1, name: "supervisor-9cecc63dea16a67a5807"
+  [1m[36mSolidQueue::Process Load (23.6ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."last_heartbeat_at" <= '2025-10-17 13:36:32.236141' AND "solid_queue_processes"."id" != 1 ORDER BY "solid_queue_processes"."id" ASC LIMIT 50 FOR UPDATE SKIP LOCKED /*application='OrderService'*/[0m
+SolidQueue-1.2.1 Prune dead processes (36.9ms)  size: 0
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Create (1.9ms)[0m  [1m[32mINSERT INTO "solid_queue_processes" ("kind", "last_heartbeat_at", "supervisor_id", "pid", "hostname", "metadata", "created_at", "name") VALUES ('Dispatcher', '2025-10-17 13:41:32.231212', 1, 1208357, 'bonkis-System-Product-Name', '{"polling_interval":1,"batch_size":500,"concurrency_maintenance_interval":600}', '2025-10-17 13:41:32.245176', 'dispatcher-beb36616a3e085e1b084') RETURNING "id" /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Create (1.9ms)[0m  [1m[32mINSERT INTO "solid_queue_processes" ("kind", "last_heartbeat_at", "supervisor_id", "pid", "hostname", "metadata", "created_at", "name") VALUES ('Worker', '2025-10-17 13:41:32.235211', 1, 1208360, 'bonkis-System-Product-Name', '{"polling_interval":1,"queues":"*","thread_pool_size":3}', '2025-10-17 13:41:32.246505', 'worker-985ee9e2682a3e4e19eb') RETURNING "id" /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+SolidQueue-1.2.1 Register Worker (67.0ms)  pid: 1208360, hostname: "bonkis-System-Product-Name", process_id: 2, name: "worker-985ee9e2682a3e4e19eb"
+SolidQueue-1.2.1 Register Dispatcher (71.9ms)  pid: 1208357, hostname: "bonkis-System-Product-Name", process_id: 3, name: "dispatcher-beb36616a3e085e1b084"
+SolidQueue-1.2.1 Started Worker (73.9ms)  pid: 1208360, hostname: "bonkis-System-Product-Name", process_id: 2, name: "worker-985ee9e2682a3e4e19eb", polling_interval: 1, queues: "*", thread_pool_size: 3
+SolidQueue-1.2.1 Started Dispatcher (80.1ms)  pid: 1208357, hostname: "bonkis-System-Product-Name", process_id: 3, name: "dispatcher-beb36616a3e085e1b084", polling_interval: 1, batch_size: 500, concurrency_maintenance_interval: 600
+  [1m[36mSolidQueue::Semaphore Pluck (1.8ms)[0m  [1m[34mSELECT "solid_queue_semaphores"."id" FROM "solid_queue_semaphores" WHERE "solid_queue_semaphores"."expires_at" < '2025-10-17 13:41:32.316902' ORDER BY "solid_queue_semaphores"."id" ASC LIMIT 500 /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::BlockedExecution Pluck (1.3ms)[0m  [1m[34mSELECT DISTINCT "solid_queue_blocked_executions"."concurrency_key" FROM "solid_queue_blocked_executions" WHERE "solid_queue_blocked_executions"."expires_at" < '2025-10-17 13:41:32.386919' ORDER BY "solid_queue_blocked_executions"."concurrency_key" ASC LIMIT 500 /*application='OrderService'*/[0m
+SolidQueue-1.2.1 Unblock jobs (27.6ms)  limit: 500, size: 0
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (12.6ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.4ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:42:32.231611' WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (4.3ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.5ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.8ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.4ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:42:32.337066' WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:42:32.341210' WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (25.6ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (36.3ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mCUSTOMER_SERVICE_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Order Service
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (5.6ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.4ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:43:32.297124' WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (2.3ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (5.6ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (5.0ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.0ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:43:32.394725' WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:43:32.401336' WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (28.3ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (39.3ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.6ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.5ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:44:32.310255' WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (31.4ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.4ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:44:32.434479' WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.5ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:44:32.448338' WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (32.2ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (23.5ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (2.4ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.5ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:45:32.361479' WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (2.1ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (5.1ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (4.7ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.0ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:45:32.479857' WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.1ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:45:32.491879' WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (33.3ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (46.6ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (0.7ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."last_heartbeat_at" <= '2025-10-17 13:41:32.279027' AND "solid_queue_processes"."id" != 1 ORDER BY "solid_queue_processes"."id" ASC LIMIT 50 FOR UPDATE SKIP LOCKED /*application='OrderService'*/[0m
+SolidQueue-1.2.1 Prune dead processes (35.1ms)  size: 0
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.6ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.4ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:46:32.417047' WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (33.1ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (5.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.7ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:46:32.577222' WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (2.5ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.5ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:46:32.585145' WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (34.2ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (40.4ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.9ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.4ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:47:32.461898' WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (3.0ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (6.1ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.1ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:47:32.626497' WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (5.8ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.0ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:47:32.643095' WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (35.1ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (31.9ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (2.7ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:48:32.477749' WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (4.2ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:48:32.682519' WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (2.1ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.4ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:48:32.692740' WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (28.6ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (33.3ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+[RabbitMQ] Closed
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mCUSTOMER_SERVICE_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Order Service
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (5.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.0ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:49:32.497937' WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (3.1ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (5.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.1ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:49:32.724568' WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (6.0ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (31.1ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.5ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:49:32.765621' WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (7.9ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.8ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:50:32.515247' WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (33.2ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (2.7ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.4ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:50:32.766838' WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (2.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.4ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:50:32.780630' WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (32.3ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (31.0ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (0.6ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."last_heartbeat_at" <= '2025-10-17 13:46:32.310421' AND "solid_queue_processes"."id" != 1 ORDER BY "solid_queue_processes"."id" ASC LIMIT 50 FOR UPDATE SKIP LOCKED /*application='OrderService'*/[0m
+SolidQueue-1.2.1 Prune dead processes (5.8ms)  size: 0
+  [1m[36mSolidQueue::Semaphore Pluck (0.6ms)[0m  [1m[34mSELECT "solid_queue_semaphores"."id" FROM "solid_queue_semaphores" WHERE "solid_queue_semaphores"."expires_at" < '2025-10-17 13:51:32.412101' ORDER BY "solid_queue_semaphores"."id" ASC LIMIT 500 /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::BlockedExecution Pluck (0.7ms)[0m  [1m[34mSELECT DISTINCT "solid_queue_blocked_executions"."concurrency_key" FROM "solid_queue_blocked_executions" WHERE "solid_queue_blocked_executions"."expires_at" < '2025-10-17 13:51:32.426689' ORDER BY "solid_queue_blocked_executions"."concurrency_key" ASC LIMIT 500 /*application='OrderService'*/[0m
+SolidQueue-1.2.1 Unblock jobs (7.9ms)  limit: 500, size: 0
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.9ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.4ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:51:32.557581' WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (4.2ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (26.2ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:51:32.841920' WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:51:32.843142' WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (13.3ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (13.0ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:52:32.605818' WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (35.2ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (5.2ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (4.8ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:52:32.867820' WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.4ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:52:32.869670' WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (36.1ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (47.3ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.2ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:53:32.658984' WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (38.5ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.1ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:53:32.915308' WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.0ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:53:32.929305' WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (37.4ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (38.4ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (4.8ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.0ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:54:32.713284' WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (5.3ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:54:32.965499' WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (13.1ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (1.1ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:54:32.993118' WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (2.2ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.9ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:55:32.734879' WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (3.6ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.2ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:55:32.982583' WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (3.8ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.4ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:55:33.006448' WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.1ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."last_heartbeat_at" <= '2025-10-17 13:51:32.317193' AND "solid_queue_processes"."id" != 1 ORDER BY "solid_queue_processes"."id" ASC LIMIT 50 FOR UPDATE SKIP LOCKED /*application='OrderService'*/[0m
+SolidQueue-1.2.1 Prune dead processes (43.2ms)  size: 0
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.4ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:56:32.745143' WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (5.0ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (3.0ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.5ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:56:33.010211' WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (2.0ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.4ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:56:33.014492' WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (4.3ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (16.2ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.1ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:57:32.755955' WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (7.2ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.2ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:57:33.021947' WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (6.3ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.1ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:57:33.036797' WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (3.8ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.4ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:58:32.771452' WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.6ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:58:33.032327' WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (3.0ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.2ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.2ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:58:33.046652' WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (3.1ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.4ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:59:32.787053' WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (4.1ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (2.0ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:59:33.040329' WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (1.8ms)[0m  [1m[37mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 LIMIT 1 FOR UPDATE /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Update (0.3ms)[0m  [1m[33mUPDATE "solid_queue_processes" SET "last_heartbeat_at" = '2025-10-17 13:59:33.052167' WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (16.5ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (19.4ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Destroy (2.4ms)[0m  [1m[31mDELETE FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 3 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Destroy (2.0ms)[0m  [1m[31mDELETE FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 2 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (17.6ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+SolidQueue-1.2.1 Deregister Dispatcher (24.0ms)  process_id: 3, pid: 1208357, hostname: "bonkis-System-Product-Name", name: "dispatcher-beb36616a3e085e1b084", last_heartbeat_at: "2025-10-17T13:59:33-05:00", claimed_size: nil, pruned: false
+SolidQueue-1.2.1 Shutdown Dispatcher (25.6ms)  pid: 1208357, hostname: "bonkis-System-Product-Name", process_id: 3, name: "dispatcher-beb36616a3e085e1b084", polling_interval: 1, batch_size: 500, concurrency_maintenance_interval: 600
+  [1m[36mSolidQueue::ClaimedExecution Load (0.5ms)[0m  [1m[34mSELECT "solid_queue_claimed_executions".* FROM "solid_queue_claimed_executions" WHERE "solid_queue_claimed_executions"."process_id" = 2 /*application='OrderService'*/[0m
+SolidQueue-1.2.1 Release claimed jobs (8.6ms)  size: 0
+  [1m[36mTRANSACTION (3.9ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+SolidQueue-1.2.1 Deregister Worker (36.5ms)  process_id: 2, pid: 1208360, hostname: "bonkis-System-Product-Name", name: "worker-985ee9e2682a3e4e19eb", last_heartbeat_at: "2025-10-17T13:59:33-05:00", claimed_size: nil, pruned: false
+SolidQueue-1.2.1 Shutdown Worker (41.4ms)  pid: 1208360, hostname: "bonkis-System-Product-Name", process_id: 2, name: "worker-985ee9e2682a3e4e19eb", polling_interval: 1, queues: "*", thread_pool_size: 3
+SolidQueue-1.2.1 Supervisor terminated immediately (0.3ms)  process_id: 1, supervisor_pid: 1208206, supervised_processes: [1208357, 1208360]
+SolidQueue-1.2.1 Supervisor wasn't terminated gracefully - shutdown timeout exceeded (5028.1ms)  process_id: 1, supervisor_pid: 1208206, supervised_processes: [1208357, 1208360]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Destroy (2.8ms)[0m  [1m[31mDELETE FROM "solid_queue_processes" WHERE "solid_queue_processes"."id" = 1 /*application='OrderService'*/[0m
+  [1m[36mTRANSACTION (19.2ms)[0m  [1m[35mCOMMIT /*application='OrderService'*/[0m
+  [1m[36mSolidQueue::Process Load (0.4ms)[0m  [1m[34mSELECT "solid_queue_processes".* FROM "solid_queue_processes" WHERE "solid_queue_processes"."supervisor_id" = 1 /*application='OrderService'*/[0m
+SolidQueue-1.2.1 Deregister Supervisor (58.6ms)  process_id: 1, pid: 1208206, hostname: "bonkis-System-Product-Name", name: "supervisor-9cecc63dea16a67a5807", last_heartbeat_at: "2025-10-17T13:59:32-05:00", claimed_size: nil, pruned: false
+SolidQueue-1.2.1 Shutdown Supervisor (61.9ms)  pid: 1208206, hostname: "bonkis-System-Product-Name", process_id: 1, name: "supervisor-9cecc63dea16a67a5807"
+[RabbitMQ] Closed
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mCUSTOMER_SERVICE_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mCUSTOMER_SERVICE_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Order Service
+[RabbitMQ] Closed
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mCUSTOMER_SERVICE_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Order Service
+[RabbitMQ] Closed
+[dotenv] Set [36mDATABASE_URL[0m, [36mRABBITMQ_URL[0m, [36mCUSTOMER_SERVICE_URL[0m, and [36mRAILS_LOG_LEVEL[0m
+[dotenv] Loaded [33m.env[0m
+[RabbitMQ] Connected
+MessageBroker initialized for Order Service
+Started GET "/health" for ::1 at 2025-10-17 14:06:36 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='OrderService'*/[0m
+Started POST "/api/v1/orders" for ::1 at 2025-10-17 14:09:12 -0500
+Processing by Api::V1::OrdersController#create as */*
+  Parameters: {"order" => {"customer_id" => 19, "product_name" => "Laptop HP Pavilion", "quantity" => 2, "price" => 1500000}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*action='create',application='OrderService',controller='orders'*/[0m
+  ↳ app/services/orders/creator.rb:60:in 'Orders::Creator#create_order'
+  [1m[36mOrder Create (1.9ms)[0m  [1m[32mINSERT INTO "orders" ("customer_id", "product_name", "quantity", "price", "status", "created_at", "updated_at") VALUES (19, 'Laptop HP Pavilion', 2, 1500000.0, 'pending', '2025-10-17 14:09:12.670771', '2025-10-17 14:09:12.670771') RETURNING "id" /*action='create',application='OrderService',controller='orders'*/[0m
+  ↳ app/services/orders/creator.rb:60:in 'Orders::Creator#create_order'
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT /*action='create',application='OrderService',controller='orders'*/[0m
+  ↳ app/services/orders/creator.rb:60:in 'Orders::Creator#create_order'
+[ActiveJob]   [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*action='create',application='OrderService',controller='orders'*/[0m
+[ActiveJob]   ↳ app/services/orders/creator.rb:69:in 'Orders::Creator#publish_event'
+[ActiveJob]   [1m[36mSolidQueue::Job Create (1.7ms)[0m  [1m[32mINSERT INTO "solid_queue_jobs" ("queue_name", "class_name", "arguments", "priority", "active_job_id", "scheduled_at", "finished_at", "concurrency_key", "created_at", "updated_at") VALUES ('default', 'PublishOrderEventJob', '{"job_class":"PublishOrderEventJob","job_id":"c95f9de8-1fc0-440e-a4e4-a388fd482c19","provider_job_id":null,"queue_name":"default","priority":null,"arguments":[20,{"id":19,"name":"Juan Pérez","email":"juan.perez@example.com","address":"Calle 10 #45-67, Medellín, Antioquia","phone":"+57 300 123 4567","orders_count":0,"created_at":"2025-10-17T14:07:06.466-05:00","_aj_symbol_keys":["id","name","email","address","phone","orders_count","created_at"]}],"executions":0,"exception_executions":{},"locale":"en","timezone":"America/Bogota","enqueued_at":"2025-10-17T19:09:12.692226934Z","scheduled_at":"2025-10-17T19:09:12.692153319Z"}', 0, 'c95f9de8-1fc0-440e-a4e4-a388fd482c19', '2025-10-17 14:09:12.692153', NULL, NULL, '2025-10-17 14:09:12.730389', '2025-10-17 14:09:12.730389') RETURNING "id" /*action='create',application='OrderService',controller='orders'*/[0m
+[ActiveJob]   ↳ app/services/orders/creator.rb:69:in 'Orders::Creator#publish_event'
+[ActiveJob]   [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mSAVEPOINT active_record_1 /*action='create',application='OrderService',controller='orders'*/[0m
+[ActiveJob]   ↳ app/services/orders/creator.rb:69:in 'Orders::Creator#publish_event'
+[ActiveJob]   [1m[36mSolidQueue::Job Load (0.4ms)[0m  [1m[34mSELECT "solid_queue_jobs".* FROM "solid_queue_jobs" WHERE "solid_queue_jobs"."id" = 1 LIMIT 1 /*action='create',application='OrderService',controller='orders'*/[0m
+[ActiveJob]   ↳ app/services/orders/creator.rb:69:in 'Orders::Creator#publish_event'
+[ActiveJob]   [1m[36mSolidQueue::ReadyExecution Create (0.6ms)[0m  [1m[32mINSERT INTO "solid_queue_ready_executions" ("job_id", "queue_name", "priority", "created_at") VALUES (1, 'default', 0, '2025-10-17 14:09:12.837376') RETURNING "id" /*action='create',application='OrderService',controller='orders'*/[0m
+[ActiveJob]   ↳ app/services/orders/creator.rb:69:in 'Orders::Creator#publish_event'
+[ActiveJob]   [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1 /*action='create',application='OrderService',controller='orders'*/[0m
+[ActiveJob]   ↳ app/services/orders/creator.rb:69:in 'Orders::Creator#publish_event'
+[ActiveJob]   [1m[36mTRANSACTION (1.8ms)[0m  [1m[35mCOMMIT /*action='create',application='OrderService',controller='orders'*/[0m
+[ActiveJob]   ↳ app/services/orders/creator.rb:69:in 'Orders::Creator#publish_event'
+[ActiveJob] Enqueued PublishOrderEventJob (Job ID: c95f9de8-1fc0-440e-a4e4-a388fd482c19) to SolidQueue(default) with arguments: 20, {id: 19, name: "Juan Pérez", email: "juan.perez@example.com", address: "Calle 10 #45-67, Medellín, Antioquia", phone: "+57 300 123 4567", orders_count: 0, created_at: "2025-10-17T14:07:06.466-05:00"}
+[ActiveJob] ↳ app/services/orders/creator.rb:69:in 'Orders::Creator#publish_event'
+Completed 201 Created in 240ms (Views: 4.1ms | ActiveRecord: 33.3ms (4 queries, 0 cached) | GC: 0.0ms)
+
+

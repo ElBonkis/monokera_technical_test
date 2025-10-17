@@ -1,0 +1,32 @@
+example_id                                            | status | run_time        |
+----------------------------------------------------- | ------ | --------------- |
+./spec/adapters/message_broker_factory_spec.rb[1:1:1] | passed | 0.01335 seconds |
+./spec/adapters/message_broker_factory_spec.rb[1:1:2] | passed | 0.0125 seconds  |
+./spec/adapters/message_broker_factory_spec.rb[1:1:3] | passed | 0.00522 seconds |
+./spec/adapters/message_broker_factory_spec.rb[1:1:4] | passed | 0.01463 seconds |
+./spec/adapters/message_broker_factory_spec.rb[1:2:1] | passed | 0.00676 seconds |
+./spec/adapters/rabbitmq_adapter_spec.rb[1:1:1]       | passed | 0.01281 seconds |
+./spec/adapters/rabbitmq_adapter_spec.rb[1:1:2]       | passed | 0.02597 seconds |
+./spec/adapters/rabbitmq_adapter_spec.rb[1:1:3]       | passed | 0.00924 seconds |
+./spec/adapters/rabbitmq_adapter_spec.rb[1:2:1]       | passed | 0.00879 seconds |
+./spec/adapters/rabbitmq_adapter_spec.rb[1:2:2]       | passed | 0.00878 seconds |
+./spec/adapters/rabbitmq_adapter_spec.rb[1:2:3]       | passed | 0.00847 seconds |
+./spec/adapters/rabbitmq_adapter_spec.rb[1:3:1]       | passed | 1.01 seconds    |
+./spec/adapters/rabbitmq_adapter_spec.rb[1:4:1]       | passed | 0.00536 seconds |
+./spec/adapters/rabbitmq_adapter_spec.rb[1:4:2]       | passed | 0.00665 seconds |
+./spec/adapters/rabbitmq_adapter_spec.rb[1:5:1]       | passed | 0.01657 seconds |
+./spec/models/customer_spec.rb[1:1:1]                 | passed | 0.13035 seconds |
+./spec/models/customer_spec.rb[1:1:2]                 | passed | 0.00904 seconds |
+./spec/models/customer_spec.rb[1:1:3]                 | passed | 0.01502 seconds |
+./spec/models/customer_spec.rb[1:1:4]                 | passed | 0.01848 seconds |
+./spec/models/customer_spec.rb[1:1:5]                 | passed | 0.00682 seconds |
+./spec/models/customer_spec.rb[1:1:6]                 | passed | 0.04029 seconds |
+./spec/models/customer_spec.rb[1:1:7]                 | passed | 0.00377 seconds |
+./spec/models/customer_spec.rb[1:1:8]                 | passed | 0.00596 seconds |
+./spec/models/customer_spec.rb[1:1:9]                 | passed | 0.042 seconds   |
+./spec/models/customer_spec.rb[1:2:1]                 | passed | 0.03812 seconds |
+./spec/models/customer_spec.rb[1:3:1]                 | passed | 0.02969 seconds |
+./spec/services/events/order_listener_spec.rb[1:1:1]  | passed | 0.012 seconds   |
+./spec/services/events/order_listener_spec.rb[1:1:2]  | passed | 0.02273 seconds |
+./spec/services/events/order_listener_spec.rb[1:1:3]  | passed | 0.00739 seconds |
+./spec/services/events/order_listener_spec.rb[1:1:4]  | passed | 0.00489 seconds |
