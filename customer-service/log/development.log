@@ -3351,3 +3351,83 @@ Processing by Api::V1::CustomersController#show as */*
 Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.0ms)
 
 
+Started GET "/api/v1/customers/9" for 172.18.0.1 at 2025-10-20 21:27:09 +0000
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+Processing by Api::V1::CustomersController#show as */*
+  Parameters: {"id" => "9"}
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+NameError (uninitialized constant Customers::ShowService):
+  
+app/controllers/api/v1/customers_controller.rb:23:in 'Api::V1::CustomersController#show'
+Started GET "/api/v1/customers/4" for 172.18.0.1 at 2025-10-20 21:27:09 +0000
+Processing by Api::V1::CustomersController#show as */*
+  Parameters: {"id" => "4"}
+Completed 500 Internal Server Error in 0ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+NameError (uninitialized constant Customers::ShowService):
+  
+app/controllers/api/v1/customers_controller.rb:23:in 'Api::V1::CustomersController#show'
+Started GET "/api/v1/customers/4" for 172.18.0.1 at 2025-10-20 21:27:09 +0000
+Processing by Api::V1::CustomersController#show as */*
+  Parameters: {"id" => "4"}
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+NameError (uninitialized constant Customers::ShowService):
+  
+app/controllers/api/v1/customers_controller.rb:23:in 'Api::V1::CustomersController#show'
+Started GET "/api/v1/customers/2" for 172.18.0.1 at 2025-10-20 21:31:53 +0000
+Processing by Api::V1::CustomersController#show as */*
+  Parameters: {"id" => "2"}
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+NameError (uninitialized constant Customers::ShowService):
+  
+app/controllers/api/v1/customers_controller.rb:23:in 'Api::V1::CustomersController#show'
+Started GET "/api/v1/customers/1" for 172.18.0.1 at 2025-10-20 21:31:53 +0000
+Processing by Api::V1::CustomersController#show as */*
+  Parameters: {"id" => "1"}
+Completed 500 Internal Server Error in 0ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+NameError (uninitialized constant Customers::ShowService):
+  
+app/controllers/api/v1/customers_controller.rb:23:in 'Api::V1::CustomersController#show'
+Started GET "/api/v1/customers/9" for 172.18.0.1 at 2025-10-20 21:31:53 +0000
+Processing by Api::V1::CustomersController#show as */*
+  Parameters: {"id" => "9"}
+Completed 500 Internal Server Error in 0ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+NameError (uninitialized constant Customers::ShowService):
+  
+app/controllers/api/v1/customers_controller.rb:23:in 'Api::V1::CustomersController#show'
+Started GET "/api/v1/customers/4" for 172.18.0.1 at 2025-10-20 21:35:29 +0000
+[RabbitMQ] Connected
+MessageBroker initialized for Customer Service
+Processing by Api::V1::CustomersController#show as */*
+  Parameters: {"id" => "4"}
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = 4 LIMIT 1 /*action='show',application='CustomerService',controller='customers'*/[0m
+  ↳ app/services/customers/presenter_service.rb:24:in 'Customers::PresenterService#fetch_customer'
+Completed 200 OK in 44ms (Views: 0.4ms | ActiveRecord: 3.9ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/customers/10" for 172.18.0.1 at 2025-10-20 21:45:58 +0000
+Processing by Api::V1::CustomersController#show as */*
+  Parameters: {"id" => "10"}
+  [1m[36mCustomer Load (18.7ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = 10 LIMIT 1 /*action='show',application='CustomerService',controller='customers'*/[0m
+  ↳ app/services/customers/presenter_service.rb:24:in 'Customers::PresenterService#fetch_customer'
+Completed 200 OK in 20ms (Views: 0.1ms | ActiveRecord: 21.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+

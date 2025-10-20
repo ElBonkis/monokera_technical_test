@@ -1,11 +1,12 @@
 class Api::V1::CustomersController < ApplicationController
   def index
-    result = Customers::Lister.call
+    result = Customers::MapperService.call
+
     render json: result, status: :ok
   end
 
   def create
-    result = Customers::Creator.call(customer_params)
+    result = Customers::CreatorService.call(customer_params)
 
     if result.success?
       render json: CustomerSerializer.new(result.customer).as_json, status: :created
@@ -19,7 +20,7 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def show
-    result = Customers::ShowService.call(params[:id])
+    result = Customers::PresenterService.call(params[:id])
 
     if result.success?
       render json: result.customer_data, status: :ok
@@ -30,6 +31,8 @@ class Api::V1::CustomersController < ApplicationController
       }, status: result.status_code
     end
   end
+
+  private
 
   def customer_params
     params.require(:customer).permit(:name, :email, :address, :phone)

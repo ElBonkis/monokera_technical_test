@@ -1,6 +1,6 @@
 class Api::V1::OrdersController < ApplicationController
   def index
-    result = Orders::Lister.call(
+    result = Orders::MapperService.call(
       customer_id: params[:customer_id]
     )
 
@@ -16,7 +16,7 @@ class Api::V1::OrdersController < ApplicationController
   end
 
   def create
-    result = Orders::Creator.call(order_params)
+    result = Orders::CreatorService.call(order_params)
 
     if result.success?
       render json: {

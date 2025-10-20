@@ -1,4 +1,4 @@
-class Customers::Lister < ApplicationService
+class Customers::MapperService < ApplicationService
   def call
     customers = Customer.recent
 

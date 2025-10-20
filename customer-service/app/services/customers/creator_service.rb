@@ -1,4 +1,4 @@
-class Customers::Creator < ApplicationService
+class Customers::CreatorService < ApplicationService
   attr_reader :customer, :error_type, :error_message, :errors, :status_code
 
   def initialize(customer_params)

@@ -1,4 +1,4 @@
-class Orders::Lister < ApplicationService
+class Orders::MapperService < ApplicationService
   attr_reader :customer_id
 
   def initialize(customer_id: nil)
@@ -18,7 +18,7 @@ class Orders::Lister < ApplicationService
   private
 
   def fetch_customer_data(customer_id)
-    result = Customers::Fetcher.new(customer_id).call
+    result = Customers::FetcherService.new(customer_id).call
     result.success? ? result.customer_data : { error: 'Customer data unavailable' }
   rescue => e
     Rails.logger.error "Error fetching customer: #{e.message}"

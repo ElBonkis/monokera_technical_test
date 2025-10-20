@@ -1,4 +1,4 @@
-class Customers::ShowService < ApplicationService
+class Customers::PresenterService < ApplicationService
   attr_reader :customer_data, :error_type, :error_message, :status_code
 
   def initialize(customer_id)

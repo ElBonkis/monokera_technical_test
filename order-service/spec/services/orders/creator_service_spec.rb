@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Orders::Creator do
+RSpec.describe Orders::CreatorService do
   let(:customer_data) { { 'id' => 1, 'name' => 'John Doe' } }
   let(:valid_params) do
     {
@@ -12,7 +12,7 @@ RSpec.describe Orders::Creator do
   end
 
   before do
-    allow_any_instance_of(Customers::Fetcher)
+    allow_any_instance_of(Customers::FetcherService)
       .to receive(:call)
       .and_return(double(success?: true, customer_data: customer_data))
   end
@@ -42,7 +42,7 @@ RSpec.describe Orders::Creator do
     it 'fails with missing customer_id' do
       invalid_params = valid_params.except(:customer_id)
       result = described_class.call(invalid_params)
-      
+
       expect(result.success?).to be false
       expect(result.error_type).to eq('validation_error')
     end
@@ -50,14 +50,14 @@ RSpec.describe Orders::Creator do
     it 'fails with invalid price' do
       invalid_params = valid_params.merge(price: -10)
       result = described_class.call(invalid_params)
-      
+
       expect(result.success?).to be false
     end
   end
 
   describe 'customer service errors' do
     before do
-      allow_any_instance_of(Customers::Fetcher)
+      allow_any_instance_of(Customers::FetcherService)
         .to receive(:call)
         .and_return(double(
           success?: false,
@@ -69,7 +69,7 @@ RSpec.describe Orders::Creator do
 
     it 'fails when customer not found' do
       result = described_class.call(valid_params)
-      
+
       expect(result.success?).to be false
       expect(result.error_type).to eq('customer_not_found')
     end

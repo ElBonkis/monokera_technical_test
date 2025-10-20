@@ -20,7 +20,7 @@ class OrderWithCustomerSerializer
   private
 
   def fetch_customer_data
-    result = Customers::Fetcher.new(@order.customer_id).call
+    result = Customers::FetcherService.new(@order.customer_id).call
     result.success? ? result.customer_data : { error: 'Customer data unavailable' }
   rescue => e
     Rails.logger.error "Error fetching customer: #{e.message}"

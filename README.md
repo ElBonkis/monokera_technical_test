@@ -24,7 +24,7 @@ Este proyecto implementa dos microservicios independientes que se comunican medi
          │                                              │
          └──────────────────┐         ┐────────────────┘
                             │         │
-                     ┌──────▼─────────▼──────┐
+                     ┌──────▼─────────▼───────┐
                      │                        │
                      │      RabbitMQ          │
                      │   Message Broker       │
@@ -35,13 +35,13 @@ Este proyecto implementa dos microservicios independientes que se comunican medi
 │                    BASE DE DATOS                                 │
 └──────────────────────────────────────────────────────────────────┘
 
-  ┌───────────────┐                    ┌────────────────┐
-  │  PostgreSQL   │                    │  PostgreSQL    │
-  │  Port: 5434   │                    │  Port: 5435    │
-  │               │                    │                │
-  │ order_service │                    │customer_service│
-  │  _development │                    │  _development  │
-  └───────────────┘                    └────────────────┘
+  ┌───────────────┐                               ┌────────────────┐
+  │  PostgreSQL   │                               │  PostgreSQL    │
+  │  Port: 5434   │                               │  Port: 5435    │
+  │               │                               │                │
+  │ order_service │                               │customer_service│
+  │  _development │                               │  _development  │
+  └───────────────┘                               └────────────────┘
 ```
 
 ### Servicios
@@ -532,9 +532,9 @@ monokera_technical_test/
 
 ### 1. Service Objects Pattern
 Toda la lógica de negocio está encapsulada en Service Objects (clases bajo `app/services/`):
-- `Orders::Creator` - Creación de órdenes
-- `Orders::Lister` - Listado de órdenes
-- `Customers::Fetcher` - Obtención de datos de clientes desde API externa
+- `Orders::CreatorService` - Creación de órdenes
+- `Orders::MapperService` - Listado de órdenes
+- `Customers::FetcherService` - Obtención de datos de clientes desde API externa
 - `Events::OrderPublisher` - Publicación de eventos
 - `Events::OrderListener` - Escucha y procesamiento de eventos
 

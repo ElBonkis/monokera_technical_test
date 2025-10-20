@@ -1,4 +1,4 @@
-class Orders::Creator < ApplicationService
+class Orders::CreatorService < ApplicationService
   attr_reader :order, :customer_data, :error_type, :error_message, :errors, :status_code
 
   def initialize(order_params)
@@ -40,7 +40,7 @@ class Orders::Creator < ApplicationService
   def fetch_customer
     return if error_type.present?
 
-    customer_fetcher = Customers::Fetcher.new(@order_params[:customer_id])
+    customer_fetcher = Customers::FetcherService.new(@order_params[:customer_id])
     result = customer_fetcher.call
 
     if result.success?
@@ -66,7 +66,7 @@ class Orders::Creator < ApplicationService
   end
 
   def publish_event
-      PublishOrderEventJob.perform_later(@order.id, @customer_data.symbolize_keys)
+    PublishOrderEventJob.perform_later(@order.id, @customer_data.symbolize_keys)
   rescue => e
     Rails.logger.error "Failed to enqueue publish job: #{e.message}"
   end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Customers::Fetcher do
+RSpec.describe Customers::FetcherService do
   let(:customer_id) { 1 }
   let(:customer_data) { { 'id' => 1, 'name' => 'John Doe' } }
 

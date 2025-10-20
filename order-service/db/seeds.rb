@@ -56,7 +56,7 @@ failed_orders = []
   print "  Creating order #{i + 1}/30: #{product[:name]} for Customer ##{customer_id}... "
 
   begin
-    result = Orders::Creator.call(order_params)
+    result = Orders::CreatorService.call(order_params)
 
     if result.success?
       created_orders << result.order
