@@ -1,6 +1,6 @@
 class Customer < ApplicationRecord
   validates :name, presence: true, length: { minimum: 2, maximum: 100 }
-  validates :email, presence: true, 
+  validates :email, presence: true,
                     uniqueness: { case_sensitive: false },
                     format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :address, presence: true, length: { minimum: 5, maximum: 255 }

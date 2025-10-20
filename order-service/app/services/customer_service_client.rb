@@ -22,11 +22,11 @@ class CustomerServiceClient
   def build_connection
     Faraday.new(url: @base_url) do |f|
       f.request :json
-      f.request :retry, 
+      f.request :retry,
         max: 3,
         interval: 0.5,
         backoff_factor: 2,
-        exceptions: [Faraday::TimeoutError]
+        exceptions: [ Faraday::TimeoutError ]
       f.response :json, content_type: /\bjson$/
       f.options.timeout = @timeout
       f.options.open_timeout = 2

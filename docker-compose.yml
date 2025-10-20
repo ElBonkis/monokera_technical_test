@@ -3,6 +3,7 @@ version: '3.8'
 services:
   postgres_orders:
     image: postgres:15
+    container_name: monokera_postgres_orders
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -16,9 +17,12 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - monokera_network
 
   postgres_customers:
     image: postgres:15
+    container_name: monokera_postgres_customers
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -32,9 +36,12 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - monokera_network
 
   rabbitmq:
     image: rabbitmq:3-management
+    container_name: monokera_rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -48,8 +55,138 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - monokera_network
+
+  customer_service:
+    build:
+      context: ./customer-service
+      dockerfile: Dockerfile
+    container_name: monokera_customer_service
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0 -p 3001"
+    volumes:
+      - ./customer-service:/app
+      - customer_bundle:/usr/local/bundle
+    ports:
+      - "3001:3001"
+    depends_on:
+      postgres_customers:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres_customers
+      DB_PORT: 5432
+      DB_NAME: customer_service_development
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      RABBITMQ_URL: amqp://admin:admin@rabbitmq:5672
+      RAILS_ENV: development
+      RAILS_LOG_LEVEL: debug
+    networks:
+      - monokera_network
+    stdin_open: true
+    tty: true
+
+  customer_listener:
+    build:
+      context: ./customer-service
+      dockerfile: Dockerfile
+    container_name: monokera_customer_listener
+    command: bundle exec rake rabbitmq:listen
+    volumes:
+      - ./customer-service:/app
+      - customer_bundle:/usr/local/bundle
+    depends_on:
+      postgres_customers:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      customer_service:
+        condition: service_started
+    environment:
+      DB_HOST: postgres_customers
+      DB_PORT: 5432
+      DB_NAME: customer_service_development
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      RABBITMQ_URL: amqp://admin:admin@rabbitmq:5672
+      RAILS_ENV: development
+      RAILS_LOG_LEVEL: debug
+    networks:
+      - monokera_network
+    restart: unless-stopped
+
+  order_service:
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    container_name: monokera_order_service
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0 -p 3000"
+    volumes:
+      - ./order-service:/app
+      - order_bundle:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres_orders:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      customer_service:
+        condition: service_started
+    environment:
+      DB_HOST: postgres_orders
+      DB_PORT: 5432
+      DB_NAME: order_service_development
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      RABBITMQ_URL: amqp://admin:admin@rabbitmq:5672
+      CUSTOMER_SERVICE_URL: http://customer_service:3001
+      RAILS_ENV: development
+      RAILS_LOG_LEVEL: debug
+    networks:
+      - monokera_network
+    stdin_open: true
+    tty: true
+
+  order_worker:
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    container_name: monokera_order_worker
+    command: bin/jobs
+    volumes:
+      - ./order-service:/app
+      - order_bundle:/usr/local/bundle
+    depends_on:
+      postgres_orders:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      order_service:
+        condition: service_started
+    environment:
+      DB_HOST: postgres_orders
+      DB_PORT: 5432
+      DB_NAME: order_service_development
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      RABBITMQ_URL: amqp://admin:admin@rabbitmq:5672
+      CUSTOMER_SERVICE_URL: http://customer_service:3001
+      RAILS_ENV: development
+      RAILS_LOG_LEVEL: debug
+    networks:
+      - monokera_network
+    restart: unless-stopped
 
 volumes:
   postgres_orders_data:
   postgres_customers_data:
   rabbitmq_data:
+  customer_bundle:
+  order_bundle:
+
+networks:
+  monokera_network:
+    driver: bridge

@@ -9,7 +9,10 @@ class Api::V1::OrdersController < ApplicationController
 
   def show
     order = Order.find(params[:id])
-    render json: order, status: :ok
+    serializer = OrderWithCustomerSerializer.new(order)
+    render json: serializer.as_json, status: :ok
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: 'Order not found' }, status: :not_found
   end
 
   def create

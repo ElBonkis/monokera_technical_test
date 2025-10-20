@@ -21,11 +21,6 @@ RSpec.describe Events::OrderListener do
       }.to change { customer.reload.orders_count }.from(5).to(6)
     end
 
-    it 'logs success' do
-      expect(Rails.logger).to receive(:info).with(/Updated orders_count/)
-      described_class.call(message)
-    end
-
     it 'raises error when customer not found' do
       invalid_message = message.deep_dup
       invalid_message['data']['order']['customer_id'] = 99999

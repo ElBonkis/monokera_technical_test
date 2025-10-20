@@ -32,6 +32,8 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
+  config.hosts.clear
+
   config.solid_queue.connects_to = { database: { writing: :primary } }
 
   # Make template changes take effect immediately.

@@ -11,7 +11,7 @@ namespace :rabbitmq do
     puts "=" * 70
     puts "Press Ctrl+C to stop"
     puts ""
-    
+
     begin
       MessageBroker.subscribe('order.created', queue_name: 'customer_service.orders') do |message, delivery_info, properties|
         Rails.logger.info "Received order.created event"

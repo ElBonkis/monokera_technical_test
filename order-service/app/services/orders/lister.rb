@@ -11,11 +11,19 @@ class Orders::Lister < ApplicationService
     {
       orders: orders,
       total: orders.count,
-      filtered_by: customer_id ? "customer_#{customer_id}" : "all"
+      filtered_by: customer_id ? fetch_customer_data(customer_id) : "all"
     }
   end
 
   private
+
+  def fetch_customer_data(customer_id)
+    result = Customers::Fetcher.new(customer_id).call
+    result.success? ? result.customer_data : { error: 'Customer data unavailable' }
+  rescue => e
+    Rails.logger.error "Error fetching customer: #{e.message}"
+    { error: 'Customer data unavailable' }
+  end
 
   def fetch_orders
     if customer_id.present?

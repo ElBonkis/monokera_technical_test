@@ -29,4 +29,3 @@ class Customers::ShowService < ApplicationService
     @status_code = :not_found
   end
 end
-

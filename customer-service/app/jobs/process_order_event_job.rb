@@ -6,7 +6,6 @@ class ProcessOrderEventJob < ApplicationJob
   def perform(event_data)
     Rails.logger.info "Processing event: #{event_data['event_type']}"
 
-    listener = OrderEventListener.new
-    listener.process_event(event_data)
+    OrderListener.new.process_event(event_data)
   end
 end
