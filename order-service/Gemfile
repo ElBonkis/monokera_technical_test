@@ -1,4 +1,5 @@
 source "https://rubygems.org"
+ruby "3.4.5"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.3"
@@ -29,6 +30,12 @@ gem "kamal", require: false
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
 
+gem "bunny", "~> 2.22"
+
+gem "faraday", "~> 2.7"
+
+gem "faraday-retry", "~> 2.2"
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
@@ -42,30 +49,28 @@ group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
+  gem "byebug"
+
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "rspec-rails", "~> 6.0"
+
+  gem "factory_bot_rails", "~> 6.2"
+
+  gem "faker", "~> 3.2"
+
+  gem "pry-rails", "~> 0.3.11"
+
+  gem "dotenv-rails", "~> 3.1"
 end
 
-gem "faraday", "~> 2.7"
+group :test do
+  gem "database_cleaner-active_record"
 
-gem "faraday-retry", "~> 2.2"
+  gem "shoulda-matchers", "~> 5.3"
 
-gem "bunny", "~> 2.22"
+  gem "webmock", "~> 3.19"
 
-gem "sidekiq", "~> 7.1"
-
-gem "rspec-rails", "~> 6.0", groups: [:development, :test]
-
-gem "factory_bot_rails", "~> 6.2", groups: [:development, :test]
-
-gem "faker", "~> 3.2", groups: [:development, :test]
-
-gem "pry-rails", "~> 0.3.11", groups: [:development, :test]
-
-gem "dotenv-rails", "~> 3.1", groups: [:development, :test]
-
-gem "shoulda-matchers", "~> 5.3", group: :test
-
-gem "webmock", "~> 3.19", group: :test
-
-gem "simplecov", "~> 0.22.0", group: :test, require: false
+  gem "simplecov", "~> 0.22.0", require: false
+end
